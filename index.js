@@ -1,9 +1,10 @@
 const inquirer = require('inquirer');
 const Manager = require('');
-const Engineer = require('')
-const Intern = require('')
+const Engineer = require('');
+const Intern = require('');
+const Employee = require('');
 const fs = require('fs');
-const generateTeam = require('./src/generateTeam');
+const generateTeam = require('');
 
 
 team = [];
@@ -33,7 +34,7 @@ const managerQuestions = () => {
             type: 'list',
             name: 'addMember',
             message: 'What type of team member would you like to add?',
-            choices: ['Engineer', 'Intern', 'I don\'t want to add any more team members'],
+            choices: ['Engineer', 'Intern','employees', 'I don\'t want to add any more team members'],
         }
     ])
     .then((managerAnswers) => {
@@ -79,7 +80,7 @@ const engineerQuestions = () => {
             type: 'list',
             name: 'addMember',
             message: 'What type of team member would you like to add next?',
-            choices: ['Engineer', 'Intern', 'I don\'t want to add any more team members'],
+            choices: ['Engineer', 'Intern','employees', 'I don\'t want to add any more team members'],
         }
     ])
     .then((engineerAnswers) => {
@@ -98,6 +99,50 @@ const engineerQuestions = () => {
     })
 };
 
+const employeequestions = () => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'name',
+            message: 'What is the employees\'s name?',
+        },
+        {
+            type: 'input',
+            name: 'id',
+            message: 'What is the employees\'s id?',
+        },
+        {
+            type: 'input',
+            name: 'email',
+            message: 'What is the employees\'s email address?',
+        },
+        {
+            type: 'input',
+            name: 'number',
+            message: 'What is the employees\'s number?',
+        },
+        {
+            type: 'list',
+            name: 'addMember',
+            message: 'What type of team member would you like to add next?',
+            choices: ['Engineer', 'Intern','employees', 'I don\'t want to add any more team members'],
+        }
+    ])
+    .then((employeesanswers) => {
+        const employee = new Employes(employeeAnswers.id, employee.name, employee.email, employee.officeNumber)
+        team.push(employee)
+        switch(employeesAnswers.addMember) {
+            case 'Engineer':
+                engineerQuestions();
+                break;
+            case 'Intern':
+                internQuestions();
+                break;
+            default: 
+            writeToFile('dist/index.html', generateTeam(team))
+        }
+    })
+};
 const internQuestions = () => {
     inquirer.prompt([
         {
@@ -124,7 +169,7 @@ const internQuestions = () => {
             type: 'list',
             name: 'addMember',
             message: 'What type of team member would you like to add next?',
-            choices: ['Engineer', 'Intern', 'I don\'t want to add any more team members'],
+            choices: ['Engineer', 'Intern','employees', 'I don\'t want to add any more team members'],
         }
     ])
     .then((internAnswers) => {
